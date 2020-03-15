@@ -295,4 +295,8 @@ public class CliamVoucherController {
         return "redirect:claim_voucher_deal";
     }
 
+    public void test() {
+        System.out.println("first commit");
+    }
+
 }
