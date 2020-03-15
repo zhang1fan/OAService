@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="main">
+<div th:replace="pages/top :: top"></div>
+    <section id="content_wrapper">
+<section id="content" class="table-layout animated fadeIn">
+    <div class="tray tray-center">
+        <div class="content-header">
+            <h2> 处理报销单 </h2>
+            <p class="lead"></p>
+        </div>
+        <div class="admin-form theme-primary mw1000 center-block" style="padding-bottom: 175px;">
+            <div class="panel heading-border">
+                <div class="panel-body bg-light">
+                    <div class="section-divider mt20 mb40">
+                        <span> 基本信息 </span>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">事由</div>
+                        <div class="col-md-6" th:text="${claimVoucher.cause}">${claimVoucher.cause}</div>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">创建人</div>
+                        <div class="col-md-4" th:text="${create_employee.name}">${claimVoucher.creater.name}</div>
+                        <div class="col-md-2">创建时间</div>
+                        <div class="col-md-4" th:text="${claimVoucher.createTime}"></div>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">待处理人</div>
+                        <div class="col-md-4" th:text="${deal_employee.name}">${claimVoucher.dealer.name}</div>
+                        <div class="col-md-2">状态</div>
+                        <div class="col-md-4" th:text="${claimVoucher.status}">${claimVoucher.status}</div>
+                    </div>
+                    <div class="section-divider mt20 mb40">
+                        <span> 费用明细 </span>
+                    </div>
+                    <div class="section row" th:each="item : ${items}">
+                        <div class="col-md-3" th:text="${item.item}">${item.item}</div>
+                        <div class="col-md-3" th:text="${item.amount}">${item.amount}</div>
+                        <div class="col-md-5" th:text="${item.comment}">${item.comment}</div>
+
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">总金额</div>
+                        <div class="col-md-6" th:text="${claimVoucher.totalAmount}">${claimVoucher.totalAmount}</div>
+                    </div>
+                    <div class="section-divider mt20 mb40">
+                        <span> 处理流程 </span>
+                    </div>
+                    <div class="section row" th:each="dealrecord : ${dealRecords}">
+                        <div class="col-md-1" th:each="employee : ${employees}" th:if="${dealrecord.dealSn == employee.sn}" th:text="${employee.name}">${record.dealer.name}</div>
+                        <div class="col-md-3" th:text="${dealrecord.dealTime}"></div>
+                        <div class="col-md-1" th:text="${dealrecord.dealWay}">${record.dealWay}</div>
+                        <div class="col-md-2" th:text="${dealrecord.dealResult}">${record.dealWay}</div>
+                        <div class="col-md-5" th:text="${dealrecord.comment}">备注：${record.comment}</div>
+                    </div>
+                    <form id="admin-form" name="addForm" th:action="@{claim_voucher_check}" th:object="${record}">
+                        <input type="hidden" th:name="claimVoucherId" th:value="${claimVoucher.id}">
+                        <div class="panel-body bg-light">
+                            <div class="section">
+                                <label for="comment" class="field prepend-icon">
+                                    <input path="comment" id="comment" th:name="comment" class="gui-input" placeholder="备注..."/>
+                                    <label for="comment" class="field-icon">
+                                        <i class="fa fa-lock"></i>
+                                    </label>
+                                </label>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <button th:if="${deal_employee.post eq Contact.POST_FM || deal_employee.post eq Contact.POST_GM}" type="submit" class="button" name="dealWay" th:value="${Contact.DEAL_PASS}" th:text="${Contact.DEAL_PASS}" >${Contant.DEAL_PASS}</button>
+                                <button th:if="${deal_employee.post eq Contact.POST_FM || deal_employee.post eq Contact.POST_GM}" type="submit" class="button" name="dealWay" th:value="${Contact.DEAL_BACK}" th:text="${Contact.DEAL_BACK}" >${Contant.DEAL_BACK}</button>
+                                <button th:if="${deal_employee.post eq Contact.POST_FM || deal_employee.post eq Contact.POST_GM}" type="submit" class="button" name="dealWay" th:value="${Contact.DEAL_REJECT}" th:text="${Contact.DEAL_REJECT}" >${Contant.DEAL_REJECT}</button>
+                                <button th:if="${deal_employee.post eq Contact.POST_CASHIER}" type="submit" class="button" name="dealWay" th:value="${Contact.DEAL_PAID}" th:text="${Contact.DEAL_PAID}" >${Contant.DEAL_PAID}</button>
+                                <button type="button" class="button" onclick="javascript:window.history.go(-1);"> 返回 </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </section>
+
+</div>
+<div th:replace="pages/bottom :: bottom"></div>
+</html>

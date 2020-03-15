@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="main">
+<div th:replace="pages/top :: top"></div>
+    <section id="content_wrapper">
+<section id="content" class="table-layout animated fadeIn">
+    <div class="tray tray-center">
+        <div class="content-header">
+            <h2> 修改报销单 </h2>
+            <p class="lead"></p>
+        </div>
+        <div class="admin-form theme-primary mw1000 center-block" style="padding-bottom: 175px;">
+            <div class="panel heading-border">
+                <form id="admin-form" name="addForm" th:action="@{claim_voucher_update}" th:object="${info}" th:method="post">
+                    <input type="hidden" name="claimVoucher.id" th:value="${info.claimVoucher.id}">
+                    <div class="panel-body bg-light">
+                        <div class="section-divider mt20 mb40">
+                            <span> 基本信息 </span>
+                        </div>
+                        <div class="section">
+                            <label for="claimVoucher.cause" class="field prepend-icon">
+                                <input path="claimVoucher.cause" id="claimVoucher.cause" name="claimVoucher.cause" th:value="${info.claimVoucher.cause}" class="gui-input" placeholder="事由..."/>
+                                <label for="claimVoucher.cause" class="field-icon">
+                                    <i class="fa fa-lock"></i>
+                                </label>
+                            </label>
+                        </div>
+                        <div class="section-divider mt20 mb40">
+                            <span> 费用明细 </span>
+                        </div>
+                        <div class="section row" id="items" >
+                            <div th:each="items,sta : ${info.items}">
+                                <div class="col-md-3">
+                                    <label for="items[0].item" class="field prepend-icon">
+                                        <input type="hidden" name="items[0].id" th:value="${items.id}" path="items[0].id"/>
+                                        <input type="hidden" name="items[0].claimVoucherId" th:value="${items.claimVoucherId}" path="items[0].claimVoucherId"/>
+                                        <select path="items[0].item" id="items[0].item" name="items[0].item" class="gui-input" placeholder="花销类型..." items="${items}">
+                                            <option th:selected="${items.item eq i}" th:each="i : ${it}" th:value="${i}" th:text="${i}"><i class="fa fa-lock"></i></option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="items[0].amount" class="field prepend-icon">
+                                        <input path="items[0].amount" id="items[0].amount" name="items[0].amount" th:value="${items.amount}" class="gui-input money" placeholder="金额..."/>
+                                        <label for="items[0].amount" class="field-icon">
+                                            <i class="fa fa-lock"></i>
+                                        </label>
+                                    </label>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="items[0].comment" class="field prepend-icon">
+                                        <input path="items[0].comment" id="items[0].comment" tname="items[0].comment" th:value="${items.comment}" class="gui-input" placeholder="备注..." />
+                                        <label for="items[0].comment" class="field-icon">
+                                            <i class="fa fa-lock"></i>
+                                        </label>
+                                    </label>
+                                </div>
+                                <div class="col-md-1" style="text-align:right;">
+                                    <button type="button" class="button"> X </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section row">
+                            <div class="col-md-3">
+                                <label for="totalMoney" class="field prepend-icon">
+                                    <input id="totalMoney" path="claimVoucher.totalAmount" name="claimVoucher.totalAmount" th:value="${info.claimVoucher.totalAmount}" class="gui-input" placeholder="总金额..." readonly="true"/>
+                                    <label for="totalMoney" class="field-icon">
+                                        <i class="fa fa-user"></i>
+                                    </label>
+                                </label>
+                            </div>
+                            <div class="section" style="text-align:right;">
+                                <div class="col-md-9">
+                                    <button type="button" class="button" id="addItemButton"> + </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button type="submit" class="button"> 保存 </button>
+                            <button type="button" class="button" onclick="javascript:window.history.go(-1);"> 返回 </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+    </section>
+</div>
+<div th:replace="pages/bottom :: bottom"></div>
+</html>

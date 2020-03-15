@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="main">
+<div th:replace="pages/top :: top"></div>
+<section id="content_wrapper">
+<section id="content" class="table-layout animated fadeIn">
+    <div class="tray tray-center">
+        <div class="content-header">
+            <h2> 编辑部门 </h2>
+            <p class="lead"></p>
+        </div>
+        <div class="admin-form theme-primary mw1000 center-block" style="padding-bottom: 175px;">
+            <div class="panel heading-border">
+                <form th:action="@{department_update}" th:method="post" th:object="${department}" id="admin-form" name="addForm">
+                    <div class="panel-body bg-light">
+                        <div class="section-divider mt20 mb40">
+                            <span> 基本信息 </span>
+                        </div>
+                        <div class="section row">
+                            <div class="col-md-6">
+                                <label th:for="sn" class="field prepend-icon">
+                                    <input th:id="sn" th:name="sn" th:value="*{sn}" class="gui-input" placeholder="编号..." readonly="true"/>
+                                    <label th:for="sn" class="field-icon">
+                                        <i class="fa fa-user"></i>
+                                    </label>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label th:for="name" class="field prepend-icon">
+                                    <input th:id="name" th:name="name" th:value="*{name}" class="gui-input" placeholder="名称..." />
+                                    <label th:for="name" class="field-icon">
+                                        <i class="fa fa-user"></i>
+                                    </label>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <label th:for="address" class="field prepend-icon">
+                                <input th:id="address" th:name="address" th:value="*{address}" class="gui-input" placeholder="地址..." />
+                                <label th:for="address" class="field-icon">
+                                    <i class="fa fa-lock"></i>
+                                </label>
+                            </label>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button type="submit" class="button"> 保存 </button>
+                            <button type="button" class="button" onclick="javascript:window.history.go(-1);"> 返回 </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</section>
+</div>
+    <div th:replace="pages/bottom :: bottom"></div>
+
+</html>

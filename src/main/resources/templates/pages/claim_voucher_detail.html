@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="main">
+<div th:replace="pages/top :: top"></div>
+    <section id="content_wrapper">
+<section id="content" class="table-layout animated fadeIn">
+    <div class="tray tray-center">
+        <div class="content-header">
+            <h2> 报销单详情 </h2>
+            <p class="lead"></p>
+        </div>
+        <div class="admin-form theme-primary mw1000 center-block" style="padding-bottom: 175px;">
+            <div class="panel heading-border">
+                <div class="panel-body bg-light">
+                    <div class="section-divider mt20 mb40">
+                        <span> 基本信息 </span>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">事由</div>
+                        <div class="col-md-6" th:text="${claimVoucher.cause}"></div>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">创建人</div>
+                        <div class="col-md-4" th:each="employee : ${employees}" th:if="${claimVoucher.createSn == employee.sn}" th:text="${employee.name}"></div>
+                        <div class="col-md-2">创建时间</div>
+                        <div class="col-md-4" th:text="${claimVoucher.createTime}"></div>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">待处理人</div>
+                        <div class="col-md-4" th:each="employee : ${employees}" th:if="${claimVoucher.nextDealSn == employee.sn}" th:text="${employee.name}"></div>
+                        <div class="col-md-2">状态</div>
+                        <div class="col-md-4" th:text="${claimVoucher.status}"></div>
+                    </div>
+                    <div class="section-divider mt20 mb40">
+                        <span> 费用明细 </span>
+                    </div>
+                    <div class="section row" th:each="item : ${clist}">
+                        <div class="col-md-2">费用类型</div>
+                        <div class="col-md-4" th:text="${item.item}"></div>
+                        <div class="col-md-2">费用金额</div>
+                        <div class="col-md-4" th:text="${item.amount}"></div>
+                        <div class="col-md-2">备注信息</div>
+                        <div class="col-md-4" th:text="${item.comment}"></div>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">总金额</div>
+                        <div class="col-md-4" th:text="${claimVoucher.totalAmount}"></div>
+                    </div>
+                    <div class="section-divider mt20 mb40">
+                        <span> 处理流程 </span>
+                    </div>
+                    <div class="section row" th:each="record : ${records}">
+                        <div class="col-md-2">处理人</div>
+                        <div class="col-md-4" th:each="employee : ${employees}" th:if="${record.dealSn == employee.sn}" th:text="${employee.name}">${record.dealer.name}</div>
+                        <div class="col-md-2">处理时间</div>
+                        <div class="col-md-4" th:text="${record.dealTime}"></div>
+                        <div class="col-md-2">处理方式</div>
+                        <div class="col-md-4" th:text="${record.dealWay}">${record.dealWay}</div>
+                        <div class="col-md-2">处理结果</div>
+                        <div class="col-md-4" th:text="${record.dealResult}">${record.dealWay}</div>
+                        <div class="col-md-2">备注</div>
+                        <div class="col-md-4" th:text="${record.comment}">备注：${record.comment}</div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button type="button" class="button" onclick="javascript:window.history.go(-1);"> 返回 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </section>
+</div>
+<div th:replace="pages/bottom :: bottom"></div>
+</html>

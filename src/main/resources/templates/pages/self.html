@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<div id="main">
+<div th:replace="pages/top :: top"></div>
+    <section id="content_wrapper">
+<section id="content" class="table-layout animated fadeIn">
+    <div class="tray tray-center">
+        <div class="content-header">
+            <h2> 个人信息 </h2>
+            <p class="lead"></p>
+        </div>
+        <div class="admin-form theme-primary mw1000 center-block" style="padding-bottom: 175px;">
+            <div class="panel heading-border" th:object="${department}">
+                <div class="panel-body bg-light" th:object="${employee1}">
+                    <div class="section-divider mt20 mb40" >
+                        <span> 基本信息 </span>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">工号</div>
+                        <div class="col-md-4" th:text="${employee1.sn}"></div>
+                        <div class="col-md-2">姓名</div>
+                        <div class="col-md-4" th:text="${employee1.name}"></div>
+                    </div>
+                    <div class="section row">
+                        <div class="col-md-2">所属部门</div>
+                        <div class="col-md-4" th:text="${department.name}"></div>
+                        <div class="col-md-2">职务</div>
+                        <div class="col-md-4" th:text="${employee1.post}"></div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button type="button" class="button" onclick="javascript:window.history.go(-1);"> 返回 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </section>
+</div>
+<div th:replace="pages/bottom :: bottom"></div>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="main">
+    <div th:replace="pages/top :: top"></div>
+<section id="content_wrapper">
+<section id="content" class="table-layout animated fadeIn">
+    <div class="tray tray-center">
+        <div class="content-header">
+            <h2> 添加员工 </h2>
+            <p class="lead"></p>
+        </div>
+        <div class="admin-form theme-primary mw1000 center-block" style="padding-bottom: 175px;">
+            <div class="panel heading-border">
+                <form th:action="@{employee_add}" th:object="${employee}" th:method="post" id="admin-form" name="addForm">
+                    <div class="panel-body bg-light">
+                        <div class="section-divider mt20 mb40">
+                            <span> 基本信息 </span>
+                        </div>
+                        <div class="section row">
+                            <div class="col-md-6">
+                                <label for="sn" class="field prepend-icon">
+                                    <input path="sn" id="sn" name="sn" class="gui-input" placeholder="工号..."/>
+                                    <label for="sn" class="field-icon">
+                                        <i class="fa fa-user"></i>
+                                    </label>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="name" class="field prepend-icon">
+                                    <input path="name" id="name" name="name" class="gui-input" placeholder="姓名..."/>
+                                    <label for="name" class="field-icon">
+                                        <i class="fa fa-user"></i>
+                                    </label>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="section row">
+                            <div class="col-md-6">
+                                <label for="sn" class="field select">
+                                    <select path="departmentSn" name="departmentSn" itemLabel="name" itemValue="sn" cssClass="gui-input" placeholder="所属部门...">
+                                        <option th:each="dn : ${dlist}" th:value="${dn.sn}" th:text="${dn.name}"><i class="arrow double"></i></option></select>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="post" class="field select">
+                                    <select path="post" id="post" name="post" items="${plist}" cssClass="gui-input" placeholder="职务...">
+                                        <option th:each="pn : ${plist}" th:value="${pn}" th:text="${pn}"></option><i class="arrow double"></i></select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button type="submit" class="button"> 保存 </button>
+                            <button type="button" class="button" onclick="javascript:window.history.go(-1);"> 返回 </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</section>
+</div>
+<div th:replace="pages/bottom :: bottom"></div>
+</html>
